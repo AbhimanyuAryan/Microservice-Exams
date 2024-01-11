@@ -1,0 +1,63 @@
+version: "3.8"
+services:
+
+  mongodb:
+    image: mongo
+    ports:
+      - 27018:27017
+    volumes:
+      - ./db_init_script/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    networks:
+      - mynetwork
+
+  authserver:
+    build: ./Users-Microservice/AuthServer
+    ports:
+      - 8021:8021
+    depends_on:
+      - mongodb
+    networks:
+      - mynetwork
+    environment:
+      - MONGO_URL=mongodb://mongodb/
+
+  userinterface:
+    build: ./Users-Microservice/Interface
+    ports:
+      - 8020:8020
+    depends_on:
+      - authserver
+    networks:
+      - mynetwork
+    environment:
+      - NOTIFICATION_API=notificationapi
+      - NOTIFICATION_INTERFACE=notificationinterface
+      - AUTH_SERVER=authserver
+
+
+  notificationapi:
+    build: ./Notifications-Microservice/API
+    ports:
+      - 8031:8031
+    depends_on:
+      - mongodb
+    networks:
+      - mynetwork
+    environment:
+      - MONGO_URL=mongodb://mongodb/
+
+  notificationinterface:
+    build: ./Notifications-Microservice/Interface
+    ports:
+      - 8030:8030
+    depends_on:
+      - notificationapi
+    networks:
+      - mynetwork
+    environment:
+      - NOTIFICATION_API=notificationapi
+      - USER_INTERFACE=userinterface
+
+networks:
+  mynetwork:
+    driver: bridge  

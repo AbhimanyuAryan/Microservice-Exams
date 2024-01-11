@@ -1,0 +1,15 @@
+[
+    {
+        "name" : "João Pedro",
+        "mec_number" : "pg49012",
+        "email" : "pg49012@alunos.uminho.pt",
+        "password" : "12345"
+    },
+    {
+        "name" : "Rui Manuel",
+        "mec_number" : "pg58712",
+        "email" : "pg58712@alunos.uminho.pt",
+        "password" : "ras123"
+    }
+    
+]

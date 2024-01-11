@@ -1,0 +1,15 @@
+[
+    {
+        "name" : "João Paulo",
+        "mec_number" : "d9012",
+        "email" : "d9012@di.uminho.pt",
+        "password" : "12345"
+    },
+    {
+        "name" : "Rodrigo Bento",
+        "mec_number" : "d8712",
+        "email" : "d8712@di.uminho.pt",
+        "password" : "ras123"
+    }
+    
+]

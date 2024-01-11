@@ -1,0 +1,98 @@
+extends layout
+
+block content
+  div.sticky
+    nav#mySidebar.w3-sidebar.w3-red.w3-animate-left(style='z-index:3;width:300px;font-weight:bold;display:none')
+      br
+      a.w3-button.w3-circle.w3-light-grey(href='javascript:void(0)', onclick='toggleSidebar()', style='position: relative;  left:240px; width:50px; height:50px; font-size:22px') &lt;
+      .w3-container.w3-row
+        if user
+            .w3-col.s8.w3-bar
+              span 
+                strong #{user.name}
+              br
+              a.w3-bar-item.w3-button.w3-hover-white(href='/profile')
+                i.fa.fa-user
+              a.w3-bar-item.w3-button.w3-hover-white(href='/profile/edit')
+                i.fa.fa-edit
+              a.w3-bar-item.w3-button.w3-hover-white(href='/logout')
+                i.fa.fa-sign-out
+        else 
+          a.w3-button.w3-xlarge(href="/login")
+            i.fa.fa-sign-in
+            | &nbsp; Login
+      hr
+      .w3-bar-block
+        a.w3-bar-item.w3-button.w3-hover-white(href='/') 
+          i.fa.fa-home
+          | &nbsp; Home
+        if user
+          if user.type == 'technician'
+            a.w3-bar-item.w3-button.w3-hover-white(href='/registteacher') 
+              i.fa.fa-plus
+              | &nbsp; Regist Teachers
+          if user.type == 'technician' ||  user.type == 'teacher'
+            a.w3-bar-item.w3-button.w3-hover-white(href='/registstudent') 
+              i.fa.fa-plus
+              | &nbsp; Regist Students
+      
+
+    // Top menu on small screens
+
+    div(style="display: flex; align-items: center; background-color: #f0f2f5; padding: 8px;")
+      button.w3-button.w3-xxlarge(onclick="toggleSidebar()" style ="background-color: transparent;") &#9776;
+      div.s4(style='display: inline-block; margin-left: 5px; margin-right:5px', id='favIconBar')
+        a.w3-button.w3-hover-light-grey(style='all: unset;cursor: pointer;text-decoration: none;',href='/')
+          img.w3-circle(src='/images/uminho.png', style='width: 46px; height: 46px; object-fit: cover;')
+      div.s4(style="margin-left: auto")
+        if user
+        else 
+          a.w3-button.w3-xlarge(href="/login")
+            i.fa.fa-sign-in
+            | &nbsp; Login
+
+
+  header.w3-container.w3-top.w3-hide-large.w3-red.w3-xlarge.w3-padding
+    a.w3-button.w3-red.w3-margin-right(href='javascript:void(0)', onclick='toggleSidebar()') &#x2630;
+    span Home Page
+
+  // !PAGE CONTENT!
+  .w3-main#main-content(style='margin-left:40px;margin-right:40px')
+    // Header
+    #showcase.w3-container(style='margin-top:80px')
+        div(style="display: flex; align-items: center;margin-top: 20px;")
+            button.w3-button.w3-left#btn-voltar(style="height:100%; display: none;")
+              a(href='javascript:history.back()', style="text-decoration: none;")
+                i.fa.fa-chevron-circle-left
+                | &nbsp; Go back
+        h1.w3-jumbo
+          b Home Page
+        
+        if user
+          a(href='/profile' style='text-decoration: none; color: inherit;')
+            .w3-panel.w3-card(style='text-align: center;')
+              p(style='font-size: 20px;') My Profile
+
+          a(href='/profile/edit' style='text-decoration: none; color: inherit;') 
+            .w3-panel.w3-card(style='text-align: center;')
+              p(style='font-size: 20px;') Edit Profile
+
+          if user.type == 'technician'
+            a(href='/registteacher' style='text-decoration: none; color: inherit;') 
+              .w3-panel.w3-card(style='text-align: center;')
+                p(style='font-size: 20px;') Regist Teachers
+
+          if user.type == 'technician' ||  user.type == 'teacher'
+            a(href='/registstudent' style='text-decoration: none; color: inherit;') 
+              .w3-panel.w3-card(style='text-align: center;')
+                p(style='font-size: 20px;') Regist Students
+        else
+          a(href='/login' style='text-decoration: none; color: inherit; text-align: center;')
+            p(style='font-size: 20px;') Login to start using PROBUM
+
+    
+  // W3.CSS Container
+  .w3-light-grey.w3-container.w3-padding-32.footer(style='margin-top:75px;padding-right:58px')
+    p.w3-right
+      | Powered by 
+      a.w3-hover-opacity(href='https://www.w3schools.com/w3css/default.asp', title='W3.CSS', target='_blank') w3.css
